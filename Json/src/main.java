@@ -1,5 +1,8 @@
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Scanner;
+
+import org.json.*;
 
 public class main {
     public static void main(String[] args) {
@@ -63,6 +66,7 @@ public class main {
         int Kofola = 10;
         int aloeVera = 10;
         int monster = 10;
+        JSONObject jsonObject = new JSONObject(fanta);
 
         Item napojeCena = new Item();
         napojeCena.setCena(1.8);
@@ -80,6 +84,9 @@ public class main {
         try {
             if (vyber == 1) {
                 fanta--;
+                try(PrintWriter writer = new PrintWriter("Napoje.json")){
+                    writer.println(jsonObject);
+                }
                 if (fanta == 0) {
                     System.out.println("Fanta je vypredana");
                     Thread.sleep(1000);
@@ -87,10 +94,7 @@ public class main {
                 }
                 System.out.println("Vybrali ste si Fantu , cena je " + napojeCena.getCena() + " Eur");
                 platba();
-                FileWriter writer = new FileWriter("studeneNapoje.txt");
-                writer.write("Fanta: " + fanta + "\n");
-                writer.write("\n");
-                writer.close();
+                
             }
             if (vyber == 2) {
                 Kofola--;

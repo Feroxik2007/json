@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 import org.json.*;
 
-import netscape.javascript.JSObject;
-
 public class main {
     public static void main(String[] args) {
        uvodMenu();
@@ -46,13 +44,17 @@ public class main {
     public static void napoje(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Vybrali ste moznost napoje zvolte 1. pre teple a 2 pre studene");
-        int vyber = scanner.nextInt();
         try {
+            int vyber = scanner.nextInt();
             if(vyber == 1){
                 teplyNapoj();
             }
             if(vyber == 2){
                 studenyNapoj();
+            }
+            else{
+                System.out.println("Zly vyber");
+                napoje();
             }
         } catch (Exception e) {
             System.out.println("Something went wrong!");
@@ -61,8 +63,8 @@ public class main {
     }
 
     public static void studenyNapoj() throws InterruptedException{
-        
-        
+        Napoj napoj = new Napoj(10);
+        JSONObject jsonObject = new JSONObject(napoj);
         int fanta = 10;
         int Kofola = 10;
         int aloeVera = 10;
@@ -86,19 +88,17 @@ public class main {
         int vyber  = scanner.nextInt();
         try {
             if (vyber == 1) {
-                Napoj napoj = new Napoj(10);
                 fanta--;
-                JSObject ong = new JSObject(napoj) ;
                 try(PrintWriter writer = new PrintWriter("Napoje.json")){
                     writer.println(jsonObject);
                 }
-                if (fanta == 0) {
-                    System.out.println("Fanta je vypredana");
-                    Thread.sleep(1000);
-                    studenyNapoj();
+                    if (fanta == 0) {
+                        System.out.println("Fanta je vypredana");
+                        Thread.sleep(1000);
+                        studenyNapoj();
                 }
-                System.out.println("Vybrali ste si Fantu , cena je " + napojeCena.getCena() + " Eur");
-                platba();
+                        System.out.println("Vybrali ste si Fantu , cena je " + napojeCena.getCena() + " Eur");
+                         platba();
                 
             }
             if (vyber == 2) {

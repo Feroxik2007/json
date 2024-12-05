@@ -1,4 +1,4 @@
-public class Snack extends Item {
+public class Snack  extends  Item{
     private int quantityy;
 
     public int getQuantity() {

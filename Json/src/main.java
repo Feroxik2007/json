@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import org.json.*;
 
+import netscape.javascript.JSObject;
+
 public class main {
     public static void main(String[] args) {
        uvodMenu();
@@ -59,14 +61,15 @@ public class main {
     }
 
     public static void studenyNapoj() throws InterruptedException{
-        Napoj napoj = new Napoj();
         
         
         int fanta = 10;
         int Kofola = 10;
         int aloeVera = 10;
         int monster = 10;
-        JSONObject jsonObject = new JSONObject(fanta);
+        
+        
+        
 
         Item napojeCena = new Item();
         napojeCena.setCena(1.8);
@@ -83,7 +86,9 @@ public class main {
         int vyber  = scanner.nextInt();
         try {
             if (vyber == 1) {
+                Napoj napoj = new Napoj(10);
                 fanta--;
+                JSObject ong = new JSObject(napoj) ;
                 try(PrintWriter writer = new PrintWriter("Napoje.json")){
                     writer.println(jsonObject);
                 }
@@ -139,7 +144,7 @@ public class main {
     public static void teplyNapoj() throws InterruptedException{
         Item napojeCena = new Item();
         napojeCena.setCena(1.8);
-        Napoj napoj = new Napoj();
+        Napoj napoj = new Napoj(10);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Zvolili ste si teple napoje!");
         System.out.println("Tu je nase menu: ");

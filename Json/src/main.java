@@ -2,7 +2,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-import org.json.*;
+
 
 public class main {
     public static void main(String[] args) {
@@ -54,7 +54,7 @@ public class main {
             }
             else{
                 System.out.println("Zly vyber");
-                napoje();
+                napoje();   
             }
         } catch (Exception e) {
             System.out.println("Something went wrong!");
@@ -64,7 +64,6 @@ public class main {
 
     public static void studenyNapoj() throws InterruptedException{
         Napoj napoj = new Napoj(10);
-        JSONObject jsonObject = new JSONObject(napoj);
         int fanta = 10;
         int Kofola = 10;
         int aloeVera = 10;
@@ -90,7 +89,6 @@ public class main {
             if (vyber == 1) {
                 fanta--;
                 try(PrintWriter writer = new PrintWriter("Napoje.json")){
-                    writer.println(jsonObject);
                 }
                     if (fanta == 0) {
                         System.out.println("Fanta je vypredana");
@@ -216,7 +214,14 @@ public class main {
             if(vyber.equalsIgnoreCase("nie")){
                 System.out.println("Zadajte presnu ciastku aku mate: ");
                 int ciastka = scanner.nextInt();
-                if(ciastka > 10){
+
+                if (ciastka < napojeCena.getCena()) {
+                    System.out.println("Nemas dostatok!");
+                    Thread.sleep(1000);
+                    platba();
+                    System.exit(0);
+                }
+                else if(ciastka > 10){
                     System.out.println("Kavomat nemoze vidat taku ciastku");
                     Thread.sleep(1000);
                     platba();
@@ -226,6 +231,7 @@ public class main {
                     Thread.sleep(1000);
                     platba();
                 }
+                
                 System.out.println("Tu je vas vydavok: " + (ciastka - napojeCena.getCena()) + " Eur");
                 System.out.println("Produkt sa pripravuje...");
                 Thread.sleep(1000);

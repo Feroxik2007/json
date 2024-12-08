@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 
 
-public class main {
+public class main   {
     public static void main(String[] args) {
        uvodMenu();
     }
@@ -187,7 +187,7 @@ public class main {
         }
         scanner.close();
     }
-    public static void platba() throws InterruptedException{
+    public static void platba() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         
         Item napojeCena = new Item();
@@ -242,6 +242,7 @@ public class main {
                 System.out.println("...");
                 Thread.sleep(1000);
                 System.out.println("Produk je pripraveny, Dakujeme za navstevu!");
+                
                 System.exit(0);
             } 
         } catch (Exception e) {
@@ -250,6 +251,8 @@ public class main {
         scanner.close();
         
         
+        
     }
+    
    
 }

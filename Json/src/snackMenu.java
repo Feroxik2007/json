@@ -15,12 +15,12 @@ public class snackMenu {
         
         int mnozstvo = 5;
         Scanner scanner = new Scanner(System.in);
-        Map<Integer, String> map = new HashMap<>();
-        map.put(1, "Snickers " );
-        map.put(2, "M&M's " );
-        map.put(3, "Reese's Pieces" );
-        map.put(4, "Kit Kat  ");
-        map.put(5, "Twix" );
+        Map<String, String> map = new HashMap<>();
+        map.put("1A", "Snickers " );
+        map.put("2B", "M&M's " );
+        map.put("3C", "Reese's Pieces" );
+        map.put("4D", "Kit Kat  ");
+        map.put("5F", "Twix" );
         System.out.println("Tu je nase menu: ");
         System.out.println("Snickers -  [1A]" + " " + "cena: " +snacky.getCena());
         Thread.sleep(500);
@@ -32,11 +32,12 @@ public class snackMenu {
         Thread.sleep(500);
         System.out.println("Twix - [5E]" + " " + "cena: " + snacky.getCena());
         System.out.println("Co si prajete?");
-        String odpoved = scanner.nextLine();
+        
 
         try {
+            String odpoved = scanner.nextLine();
             FileWriter writer = new FileWriter("snack.txt");
-            if (odpoved.contains("1")) {
+            if (map.containsKey(odpoved)) {
                 snacky.setMnozstvo(mnozstvo);
                 mnozstvo--;
                 writer.write("Pocete snickersu: " + mnozstvo);
@@ -46,52 +47,7 @@ public class snackMenu {
                     Thread.sleep(1000);
                     Diddy();
                 }
-                System.out.println( "Vybrali ste si: "+ " "  + map.get(1));
-                platba();
-            }
-            
-            if(odpoved.contains("2")){
-                snacky.setMnozstvo(mnozstvo);
-                mnozstvo--;
-                writer.write("Pocete M&M's: " + " " + mnozstvo);
-                writer.close();
-                if (mnozstvo == 0) {
-                    System.out.println("M&M's su vypredane");
-                }
-                System.out.println("Vybrali ste si: " + " " + map.get(2));
-                platba();
-            }
-            if(odpoved.contains("3")){
-                snacky.setMnozstvo(mnozstvo);
-                mnozstvo--;
-                writer.write("Pocete Reese's Pieces: " + " " + mnozstvo);
-                writer.close();
-                if (mnozstvo == 0) {
-                    System.out.println("Reese's Pieces su vypredane");
-                }
-                System.out.println( "Vybrali ste si: " + " " + map.get(3));
-                platba();
-            }
-            if(odpoved.contains("4")){
-                snacky.setMnozstvo(mnozstvo);
-                mnozstvo--;
-                writer.write("Pocet Kit Kat: " + " " + mnozstvo);
-                writer.close();
-                if (mnozstvo == 0) {
-                    System.out.println("Kit Kat su vypredane");
-                }
-                System.out.println("Vybrali ste si: " + " " + map.get(4));
-                platba();
-            }
-            if(odpoved.contains("5")){
-                snacky.setMnozstvo(mnozstvo);
-                mnozstvo--;
-                writer.write("Pocet Twix: "+ " "  + mnozstvo);
-                writer.close();
-                if (mnozstvo == 0) {
-                    System.out.println("Twix su vypredane");
-                }
-                System.out.println("Vybrali ste si"+" " + map.get(5));
+                System.out.println( "Vybrali ste si: "+ " "  + map.get(odpoved));
                 platba();
             }
             else{

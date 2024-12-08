@@ -1,5 +1,6 @@
-import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -68,11 +69,12 @@ public class main   {
         int Kofola = 10;
         int aloeVera = 10;
         int monster = 10;
-        
-        
-        
-
         Item napojeCena = new Item();
+        Map<Integer, String> napoje = new HashMap<>();
+        napoje.put(1, "Fantu");
+        napoje.put(2, "Kofolu");
+        napoje.put(3, "Aloe-Veru");
+        napoje.put(4, "Monstera");
         napojeCena.setCena(1.8);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Zvolili ste studeny napoj, co si date?");
@@ -86,7 +88,7 @@ public class main   {
         System.out.println("Co si prajete?");
         int vyber  = scanner.nextInt();
         try {
-            if (vyber == 1) {
+            if (napoje.containsKey(vyber)) {
                 fanta--;
                 try(PrintWriter writer = new PrintWriter("Napoje.json")){
                 }
@@ -95,41 +97,8 @@ public class main   {
                         Thread.sleep(1000);
                         studenyNapoj();
                 }
-                        System.out.println("Vybrali ste si Fantu , cena je " + napojeCena.getCena() + " Eur");
-                         platba();
-                
-            }
-            if (vyber == 2) {
-                Kofola--;
-                System.out.println("Vybrali ste si Kofolu , cena je " + napojeCena.getCena() + " Eur");
+                System.out.println("Vybrali ste si : " + napoje.get(vyber) +  ", cena je " + napojeCena.getCena() + " Eur");
                 platba();
-                FileWriter writer = new FileWriter("studeneNapoje.txt");
-                writer.write("Kofola: " + Kofola + "\n");
-                writer.write("\n");
-                writer.close();
-            }
-            if (vyber == 3) {
-                aloeVera--;
-                System.out.println("Vybrali ste si Aloe-Veru , cena je " + napojeCena.getCena() + " Eur");
-                platba();
-                FileWriter writer = new FileWriter("studeneNapoje.txt");
-                writer.write("Aloe-Vera: " + aloeVera + "\n");
-                writer.write("\n");
-                writer.close();
-            }
-            if (vyber == 4) {
-                monster--;
-                System.out.println("Vybrali ste si Monstera , cena je " + napojeCena.getCena() + " Eur");
-                platba();
-                FileWriter writer = new FileWriter("studeneNapoje.txt");
-                writer.write("Monster: " + monster + "\n");
-                writer.write("\n");
-                writer.close();
-            }
-            if (vyber > 4 || vyber < 1) {
-                System.out.println("Skus este raz: ");
-                Thread.sleep(1000);
-                studenyNapoj();
                 
             }
         } catch (Exception e) {
@@ -248,11 +217,6 @@ public class main   {
         } catch (Exception e) {
             System.out.println("Something went wrong");
         }
-        scanner.close();
-        
-        
-        
+        scanner.close();   
     }
-    
-   
 }

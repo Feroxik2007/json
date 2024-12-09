@@ -97,9 +97,12 @@ public class main   {
                         Thread.sleep(1000);
                         studenyNapoj();
                 }
-                System.out.println("Vybrali ste si : " + napoje.get(vyber) +  ", cena je " + napojeCena.getCena() + " Eur");
+                System.out.println("Vybrali ste si  " + napoje.get(vyber) +  ", cena je " + napojeCena.getCena() + " Eur");
                 platba();
                 
+            }else{
+                System.out.println("Naplatny vystup");
+                studenyNapoj();
             }
         } catch (Exception e) {
             System.out.println("Something went wrong!");
@@ -110,6 +113,11 @@ public class main   {
 
     public static void teplyNapoj() throws InterruptedException{
         Item napojeCena = new Item();
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, "Latte");
+        map.put(2, "Cappuccino");
+        map.put(3, "Americano");
+        map.put(4, "Espreso");
         napojeCena.setCena(1.8);
         Napoj napoj = new Napoj(10);
         Scanner scanner = new Scanner(System.in);
@@ -125,34 +133,18 @@ public class main   {
         System.out.println("Co si prajete? ");
         int vyber = scanner.nextInt();
         try {
-            if (vyber == 1) {
+            if (map.containsKey(vyber)) {
                 napoj.setNapojId("Latte");
-                System.out.println("Vybrali ste si " + napoj.getNapojId() +   ", cena je " + napojeCena.getCena() + " Eur");
+                System.out.println("Vybrali ste si " + map.get(vyber) +   ", cena je " + napojeCena.getCena() + " Eur");
                 platba();
 
-            }
-            if (vyber == 2) {
-                napoj.setNapojId("Cappuccino");
-                System.out.println("Vybrali ste si " + napoj.getNapojId() +   ", cena je " + napojeCena.getCena() + " Eur");
-                platba();
-            }
-            if (vyber == 3) {
-                napoj.setNapojId("Americano");
-                System.out.println("Vybrali ste si " + napoj.getNapojId() +   ", cena je " + napojeCena.getCena() + " Eur");
-                platba();
-            }
-            if (vyber == 4) {
-                napoj.setNapojId("Espreso");
-                System.out.println("Vybrali ste si " + napoj.getNapojId() +   ", cena je " + napojeCena.getCena() + " Eur");
-                platba();              
-            }
-            if (vyber > 4 || vyber < 1) {
-                System.out.println("Skus este raz: ");
-                Thread.sleep(1000);
+            }else {
+                System.out.println("Neplatny vystup");
                 teplyNapoj();
             }
         } catch (Exception e) {
             System.out.println("Something went wrong");
+            teplyNapoj();
         }
         scanner.close();
     }

@@ -161,6 +161,7 @@ public class main   {
                         }
                         System.out.println("Vybrali ste si  " + map.get(vyber) +  ", cena je " + napojeCena.getCena() + " Eur");
                         platba();
+                        
 
             }
         } catch (Exception e) {

@@ -152,6 +152,7 @@ public class main   {
                     if (map.containsKey(vyber)) {
                         try(PrintWriter writer = new PrintWriter("tepleNapoje.json")){
                         writer.println(ukladacMnozstva);
+                        
                     }
                     System.out.println("Vybrali ste si  " + map.get(vyber) +  ", cena je " + napojeCena.getCena() + " Eur");
                     platba();

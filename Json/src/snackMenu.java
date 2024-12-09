@@ -1,8 +1,12 @@
 import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
+import netscape.javascript.JSObject;
+import org.json.*;
 
 public class snackMenu {
     
@@ -13,14 +17,14 @@ public class snackMenu {
         Snack snacky = new Snack();
         snacky.setCena(1.9);
         
-        int mnozstvo = 5;
+        
         Scanner scanner = new Scanner(System.in);
         Map<String, String> map = new HashMap<>();
         map.put("1A", "Snickers " );
         map.put("2B", "M&M's " );
         map.put("3C", "Reese's Pieces" );
         map.put("4D", "Kit Kat  ");
-        map.put("5F", "Twix" );
+        map.put("5E", "Twix" );
         System.out.println("Tu je nase menu: ");
         System.out.println("Snickers -  [1A]" + " " + "cena: " +snacky.getCena());
         Thread.sleep(500);
@@ -36,28 +40,31 @@ public class snackMenu {
 
         try {
             String odpoved = scanner.nextLine();
-            FileWriter writer = new FileWriter("snack.txt");
+            Path p = Path.of("Snacky.json");
+            String nacitany = Files.readString(p);
+            JSONObject ulozenyJson = new JSONObject(nacitany);
+            int mnozstvooo = ulozenyJson.getInt("Mnozstvo");
+            mnozstvooo--;
+            if (mnozstvooo == 0) {
+                System.out.println("Vypredane!");
+                System.exit(0);
+            }
+            snacky.setMnozstvo(mnozstvooo);
+            ulozenyJson.put("Mnozstvo", mnozstvooo);
             if (map.containsKey(odpoved)) {
-                snacky.setMnozstvo(mnozstvo);
-                mnozstvo--;
-                writer.write("Pocete snickersu: " + mnozstvo);
-                writer.close();
-                if (mnozstvo == 0) {
-                    System.out.println("Snickers su vypredane!");
-                    Thread.sleep(1000);
-                    Diddy();
+                try(PrintWriter writer = new PrintWriter("Snacky.json")) {
+                    writer.println (ulozenyJson);
                 }
+                
                 System.out.println( "Vybrali ste si: "+ " "  + map.get(odpoved));
                 platba();
+                
+                
             }
-            else{
-                System.out.println("Nespravna volba");
-                System.out.println("Skus este raz!");
-                Thread.sleep(1000);
-                Diddy();
-            }
+            
         } catch (Exception e) {
             System.out.println("Somehing went wrong");
+            Diddy();
         }
         scanner.close();
         

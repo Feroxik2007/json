@@ -153,14 +153,14 @@ public class main   {
                         try(PrintWriter writer = new PrintWriter("tepleNapoje.json")){
                         writer.println(ukladacMnozstva);
                     }
+                    System.out.println("Vybrali ste si  " + map.get(vyber) +  ", cena je " + napojeCena.getCena() + " Eur");
+                    platba();
                         if (mnozstvooo == 0) {
                             System.out.println("Produkt je vypredany");
                             System.exit(0);
                             Thread.sleep(1000);
-                            studenyNapoj();
+                            teplyNapoj();
                         }
-                        System.out.println("Vybrali ste si  " + map.get(vyber) +  ", cena je " + napojeCena.getCena() + " Eur");
-                        platba();
                         
 
             }

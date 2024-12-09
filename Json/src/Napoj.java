@@ -2,9 +2,6 @@ public class Napoj  {
     private String napojId;
     private  String nazov;
     private int mnozstvoo;
-    Napoj(int mnozstvoo){
-        this.mnozstvoo = mnozstvoo;
-    }
 
     public String getNapojId() {
         return napojId;

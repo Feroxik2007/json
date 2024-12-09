@@ -1,7 +1,12 @@
+import java.io.File;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+import org.json.JSONObject;
 
 
 
@@ -64,11 +69,8 @@ public class main   {
     }
 
     public static void studenyNapoj() throws InterruptedException{
-        Napoj napoj = new Napoj(10);
-        int fanta = 10;
-        int Kofola = 10;
-        int aloeVera = 10;
-        int monster = 10;
+        Napoj napoj = new Napoj();
+        napoj.setMnozstvoo(10);
         Item napojeCena = new Item();
         Map<Integer, String> napoje = new HashMap<>();
         napoje.put(1, "Fantu");
@@ -89,29 +91,43 @@ public class main   {
         int vyber  = scanner.nextInt();
         try {
             if (napoje.containsKey(vyber)) {
-                fanta--;
-                try(PrintWriter writer = new PrintWriter("Napoje.json")){
+                Path p = Path.of("studeneNapoje.json");
+                String ukladac = Files.readString(p);
+                JSONObject ukladacMnozstva = new JSONObject(ukladac);
+                int mnozstvooo = ukladacMnozstva.getInt("Mnozstvo");
+                mnozstvooo--;
+                napoj.setMnozstvoo(mnozstvooo);
+                ukladacMnozstva.put("Mnozstvo", mnozstvooo);
+                try(PrintWriter writer = new PrintWriter("studeneNapoje.json")){
+                    writer.println(ukladacMnozstva);
                 }
-                    if (fanta == 0) {
-                        System.out.println("Fanta je vypredana");
+                    if (mnozstvooo == 0) {
+                        System.out.println("Produkt je vzpredany");
+                        System.exit(0);
                         Thread.sleep(1000);
                         studenyNapoj();
                 }
-                System.out.println("Vybrali ste si : " + napoje.get(vyber) +  ", cena je " + napojeCena.getCena() + " Eur");
+                System.out.println("Vybrali ste si  " + napoje.get(vyber) +  ", cena je " + napojeCena.getCena() + " Eur");
                 platba();
                 
+            }else{
+                System.out.println("Naplatny vystup");
+                studenyNapoj();
             }
         } catch (Exception e) {
             System.out.println("Something went wrong!");
             System.exit(0);
         }
-
     }
-
     public static void teplyNapoj() throws InterruptedException{
         Item napojeCena = new Item();
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, "Latte");
+        map.put(2, "Cappuccino");
+        map.put(3, "Americano");
+        map.put(4, "Espreso");
         napojeCena.setCena(1.8);
-        Napoj napoj = new Napoj(10);
+        Napoj napoj = new Napoj();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Zvolili ste si teple napoje!");
         System.out.println("Tu je nase menu: ");
@@ -123,36 +139,33 @@ public class main   {
         Thread.sleep(500);
         System.out.println("4. Espreso , " + napojeCena.getCena() + "Eur");
         System.out.println("Co si prajete? ");
-        int vyber = scanner.nextInt();
+        
         try {
-            if (vyber == 1) {
-                napoj.setNapojId("Latte");
-                System.out.println("Vybrali ste si " + napoj.getNapojId() +   ", cena je " + napojeCena.getCena() + " Eur");
-                platba();
+                int vyber = scanner.nextInt();
+                Path p = Path.of("tepleNapoje.json");
+                String ukladac = Files.readString(p);
+                JSONObject ukladacMnozstva = new JSONObject(ukladac);
+                int mnozstvooo = ukladacMnozstva.getInt("Mnozstvo" + " " +  map.get(vyber));
+                mnozstvooo--;
+                napoj.setMnozstvoo(mnozstvooo);
+                ukladacMnozstva.put("Mnozstvo" + " " +  map.get(vyber), mnozstvooo);
+                    if (map.containsKey(vyber)) {
+                        try(PrintWriter writer = new PrintWriter("tepleNapoje.json")){
+                        writer.println(ukladacMnozstva);
+                    }
+                        if (mnozstvooo == 0) {
+                            System.out.println("Produkt je vypredany");
+                            System.exit(0);
+                            Thread.sleep(1000);
+                            studenyNapoj();
+                        }
+                        System.out.println("Vybrali ste si  " + map.get(vyber) +  ", cena je " + napojeCena.getCena() + " Eur");
+                        platba();
 
-            }
-            if (vyber == 2) {
-                napoj.setNapojId("Cappuccino");
-                System.out.println("Vybrali ste si " + napoj.getNapojId() +   ", cena je " + napojeCena.getCena() + " Eur");
-                platba();
-            }
-            if (vyber == 3) {
-                napoj.setNapojId("Americano");
-                System.out.println("Vybrali ste si " + napoj.getNapojId() +   ", cena je " + napojeCena.getCena() + " Eur");
-                platba();
-            }
-            if (vyber == 4) {
-                napoj.setNapojId("Espreso");
-                System.out.println("Vybrali ste si " + napoj.getNapojId() +   ", cena je " + napojeCena.getCena() + " Eur");
-                platba();              
-            }
-            if (vyber > 4 || vyber < 1) {
-                System.out.println("Skus este raz: ");
-                Thread.sleep(1000);
-                teplyNapoj();
             }
         } catch (Exception e) {
             System.out.println("Something went wrong");
+            teplyNapoj();
         }
         scanner.close();
     }

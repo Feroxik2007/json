@@ -48,6 +48,8 @@ public class snackMenu {
             if (mnozstvooo == 0) {
                 System.out.println("Vypredane!");
                 System.exit(0);
+                Diddy();
+                
             }
             snacky.setMnozstvo(mnozstvooo);
             ulozenyJson.put("Mnozstvo", mnozstvooo);

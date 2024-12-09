@@ -39,28 +39,24 @@ public class snackMenu {
         
 
         try {
-            String odpoved = scanner.nextLine(); 
+            String odpoved = scanner.nextLine();
             Path p = Path.of("Snacky.json");
             String nacitany = Files.readString(p);
             JSONObject ulozenyJson = new JSONObject(nacitany);
             int mnozstvooo = ulozenyJson.getInt("Mnozstvo");
             mnozstvooo--;
-            if (mnozstvooo == 0) {
-                System.out.println("Vypredane!");
-                System.exit(0);
-                Diddy();
-                
-            }
             snacky.setMnozstvo(mnozstvooo);
             ulozenyJson.put("Mnozstvo", mnozstvooo);
             if (map.containsKey(odpoved)) {
                 try(PrintWriter writer = new PrintWriter("Snacky.json")) {
                     writer.println (ulozenyJson);
+                        
                 }
-                
                 System.out.println( "Vybrali ste si: "+ " "  + map.get(odpoved));
                 platba();
-                
+                if (mnozstvooo==0) {
+                    System.out.println("Vypredane!");
+                }
                 
             }
             

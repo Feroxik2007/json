@@ -51,8 +51,8 @@ public class snackMenu {
             mnozstvooo--;
             snacky.setMnozstvo(mnozstvooo);
             ulozenyJson.put("Mnozstvo " + map.get(odpoved).trim(), mnozstvooo);
-            if (mnozstvooo == 0) {
-                while(mnozstvooo==0) {
+            if (mnozstvooo <= 0) {
+                while(mnozstvooo<=0) {
                     Path pp = Path.of("chybajucePolozky.json");
                     String vypredane = Files.readString(pp);
                     try(PrintWriter writerr = new PrintWriter("chybajucePolozky.json")){
@@ -64,9 +64,8 @@ public class snackMenu {
                     Diddy();
                 }
             }
-            if (mnozstvooo != 0) {
+            if (mnozstvooo != 0 && map.containsKey(odpoved)) {
                 while (mnozstvooo != 0) { 
-                    if (map.containsKey(odpoved)) {
                         try(PrintWriter writer = new PrintWriter("Snacky.json")) {
                             writer.println (ulozenyJson);
                         }
@@ -74,13 +73,12 @@ public class snackMenu {
                         platba();
                 }
             }
-            }
+            
         } catch (Exception e) {
             System.out.println("Somehing went wrong");
             Diddy();
         }
         scanner.close();
-        
     }
     public static void platba() throws InterruptedException{
         Scanner scanner = new Scanner(System.in);
@@ -110,7 +108,7 @@ public class snackMenu {
                 int ciastka = scanner.nextInt();
                 double vydavok = ciastka - cena.getCena();
                 if(ciastka > 5){
-                    System.out.println("Kavomat nemoze vidat taku ciastku");
+                    System.out.println("Kavomat nemoze vydat taku ciastku");
                     Thread.sleep(1000);
                     platba();
                 }

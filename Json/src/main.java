@@ -94,10 +94,10 @@ public class main   {
                 Path p = Path.of("studeneNapoje.json");
                 String ukladac = Files.readString(p);
                 JSONObject ukladacMnozstva = new JSONObject(ukladac);
-                int mnozstvooo = ukladacMnozstva.getInt("Mnozstvo");
+                int mnozstvooo = ukladacMnozstva.getInt("Mnozstvo" + " " + napoje.get(vyber));
                 mnozstvooo--;
                 napoj.setMnozstvoo(mnozstvooo);
-                ukladacMnozstva.put("Mnozstvo", mnozstvooo);
+                ukladacMnozstva.put("Mnozstvo" + " " + napoje.get(vyber), mnozstvooo);
                 try(PrintWriter writer = new PrintWriter("studeneNapoje.json")){
                     writer.println(ukladacMnozstva);
                 }

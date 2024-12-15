@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
 import netscape.javascript.JSObject;
 
 import org.json.*;

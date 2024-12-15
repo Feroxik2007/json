@@ -1,6 +1,13 @@
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+
 
 import org.json.*;
 
@@ -36,18 +43,33 @@ public class Admin {
         
     }
     public static void odobrat() throws FileNotFoundException{
-        int mnozstvo = 10;
+        Scanner scanner = new Scanner(System.in);
+        snackMenu snack = new snackMenu();
+        Map<String, String> map = new HashMap<>();
+        map.put("1A", "Snickers " );
+        map.put("2B", "M&M's " );
+        map.put("3C", "Reese's Pieces" );
+        map.put("4D", "Kit Kat  ");
+        map.put("5E", "Twix" );
+        System.out.println("1.Snickers");
+        System.out.println("2.M&M's");
+        System.out.println("3.Reese's Pieces");
+        System.out.println("4.Kit Kat");
+        System.out.println("5.Twix");
+        System.out.println("Co si prajete odobrat?");
+        
         try {
-            snackMenu snack = new snackMenu();
-            Snack snacky = new Snack();
-            JSONArray jsonObject = new JSONArray();
-            jsonObject.put(0,snacky.getCena() );
+            int vyber = scanner.nextInt();
+            Path p = Path.of("Snacky.json");
+            String ulozene = Files.readString(p);
+            JSONArray jsonObject = new JSONArray(ulozene);
+            System.out.println(jsonObject.get(vyber));
             try(PrintWriter writer = new PrintWriter("mnozstvo.json" );){
-            writer.println(jsonObject);
-            System.out.println(jsonObject.get(0));
+            
             }
         } catch (Exception e) {
-            System.out.println("Chyba pri zapisovaní do súboru");
+            System.out.println("Error!");
+            odobrat();
         }
         
         
